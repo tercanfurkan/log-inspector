@@ -12,7 +12,7 @@ class LogInspector {
     }
 
     fun countEntries(
-        searchQuery: String, zipFile: File, startDate: LocalDate, numberOfDays: Int
+        startDate: LocalDate, endDate: LocalDate, searchQuery: String, zipFile: File
     ): Map<String, Int> {
         val targetDir = File(TEMP_DIR, UUID.randomUUID().toString())
         FileUtils.unzip(zipFile, targetDir)
@@ -20,7 +20,7 @@ class LogInspector {
             .toList()
             .filter { path ->
                 Files.isRegularFile(path) && isWithinDates(
-                    path, startDate, numberOfDays
+                    path, startDate, endDate
                 )
             }
             .map { path ->
@@ -31,8 +31,8 @@ class LogInspector {
             }
     }
 
-    private fun isWithinDates(pathToFileWithDate: Path, startDate: LocalDate, numberOfDays: Int): Boolean {
+    private fun isWithinDates(pathToFileWithDate: Path, startDate: LocalDate, endDate: LocalDate): Boolean {
         val fileDate = DateUtils.extractDate(pathToFileWithDate.toFile().name)
-        return fileDate in DateUtils.getDateRange(numberOfDays, startDate)
+        return fileDate in startDate..endDate
     }
 }

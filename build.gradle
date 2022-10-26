@@ -11,4 +11,7 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.assertj:assertj-core:3.11.1'
 }

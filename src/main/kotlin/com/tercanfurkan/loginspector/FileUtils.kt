@@ -14,7 +14,8 @@ object FileUtils {
     /**
      * Unzip a file to a location
      */
-    @Throws(IOException::class) fun unzip(zipFilePath: File, unzipLocation: File) {
+    @Throws(IOException::class)
+    fun unzip(zipFilePath: File, unzipLocation: File) {
         unzipLocation.run {
             if (!exists()) {
                 mkdirs()
@@ -22,18 +23,20 @@ object FileUtils {
         }
 
         ZipFile(zipFilePath).use { zip ->
-            zip.entries().asSequence().forEach { entry ->
-                zip.getInputStream(entry).use { input ->
-                    val filePath = unzipLocation.path + File.separator + entry.name
-                    if (!entry.isDirectory) {
-                        // if the entry is a file, extracts it
-                        extractFile(input, filePath)
-                    } else {
-                        // if the entry is a directory, make the directory
-                        val dir = File(filePath)
-                        dir.mkdir()
+            zip.entries().asSequence()
+                // filter out entries with MACOSX path
+                .filter { !it.name.contains("MACOSX") }.forEach { entry ->
+                    zip.getInputStream(entry).use { input ->
+                        val filePath = unzipLocation.path + File.separator + entry.name
+                        if (!entry.isDirectory) {
+                            // if the entry is a file, extracts it
+                            extractFile(input, filePath)
+                        } else {
+                            // if the entry is a directory, make the directory
+                            val dir = File(filePath)
+                            dir.mkdir()
+                        }
                     }
-                }
             }
         }
     }
@@ -41,7 +44,8 @@ object FileUtils {
     /**
      * Extracts a zip entry (file entry) to a destination
      */
-    @Throws(IOException::class) private fun extractFile(
+    @Throws(IOException::class)
+    private fun extractFile(
         inputStream: InputStream,
         destFilePath: String
     ) {

@@ -6,6 +6,9 @@
 *.war
 *.ear
 
+.DS_Store
+src/.DS_Store
+
 
 ### Gradle ###
 .gradle
