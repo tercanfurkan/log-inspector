@@ -33,3 +33,11 @@ val fileNameToLineCountMap = logInspector.countEntries(LocalDate.of(2022, 10, 23
   "25-10-2022-output.log" : 6
 }
 ```
+
+*** If you have a different date format in your log files:
+```kotlin
+val dateRegex = "\\d{4}-\\d{2}-\\d{2}"
+val dateFormat = "yyyy-MM-dd"
+val logInspector(dateRegex, dateFormat)
+...
+```

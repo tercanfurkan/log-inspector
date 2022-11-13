@@ -1,7 +1,6 @@
-package com.tercanfurkan.loginspector
+package com.tercanfurkan.loginspector.utils
 
 import java.io.*
-import java.nio.file.Path
 import java.util.zip.ZipFile
 import kotlin.properties.Delegates
 

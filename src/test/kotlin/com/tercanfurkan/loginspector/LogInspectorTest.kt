@@ -1,5 +1,6 @@
 package com.tercanfurkan.loginspector
 
+import com.tercanfurkan.loginspector.app.LogInspector
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 import java.nio.file.Paths
